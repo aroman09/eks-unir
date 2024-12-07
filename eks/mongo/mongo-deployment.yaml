@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: mongo-deployment
   namespace: node-app-namespace
+  labels:
+    app: mongo
 spec:
   replicas: 1
   selector:
@@ -14,15 +16,15 @@ spec:
         app: mongo
     spec:
       containers:
-      - name: mongo
-        image: mongo:5.0
-        ports:
-        - containerPort: 27017
-        volumeMounts:
-        - name: mongo-storage
-          mountPath: /data/db
+        - name: mongo
+          image: mongo:5.0
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - name: mongo-storage
+              mountPath: /data/db
       volumes:
-      - name: mongo-storage
-        hostPath:
-          path: /mnt/data/mongo
-          type: DirectoryOrCreate
+        - name: mongo-storage
+          hostPath:
+            path: /mnt/data/mongo
+            type: DirectoryOrCreate
