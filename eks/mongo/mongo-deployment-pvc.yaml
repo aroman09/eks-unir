@@ -1,27 +1,27 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: apps/v1          # Versión de la API de Kubernetes para el recurso Deployment.
+kind: Deployment             # Especifica que se está creando un Deployment.
 metadata:
-  name: mongo-deployment
-  namespace: node-app-namespace
+  name: mongo-deployment     # Nombre del Deployment.
+  namespace: node-app-namespace  # Namespace donde se desplegará el Deployment.
 spec:
-  replicas: 1
+  replicas: 1                # Número de réplicas (pods) que se crearán para MongoDB.
   selector:
     matchLabels:
-      app: mongo
-  template:
+      app: mongo             # Selector que identifica los pods gestionados por este Deployment.
+  template:                  # Plantilla que define cómo se deben crear los pods.
     metadata:
       labels:
-        app: mongo
+        app: mongo           # Etiqueta que se aplicará a los pods creados por este Deployment.
     spec:
-      containers:
-      - name: mongo
-        image: mongo:5.0
+      containers:            # Lista de contenedores que se ejecutarán en cada pod.
+      - name: mongo          # Nombre del contenedor.
+        image: mongo:5.0     # Imagen de Docker para MongoDB (versión 5.0).
         ports:
-        - containerPort: 27017
-        volumeMounts:
-        - name: mongo-storage
-          mountPath: /data/db
-      volumes:
-      - name: mongo-storage
-        persistentVolumeClaim:
-          claimName: mongo-pvc
+        - containerPort: 27017  # Puerto en el que MongoDB escucha las conexiones.
+        volumeMounts:         # Monta un volumen en el contenedor para el almacenamiento de datos.
+        - name: mongo-storage   # Nombre del volumen que se montará.
+          mountPath: /data/db   # Directorio dentro del contenedor donde MongoDB almacenará sus datos.
+      volumes:               # Define los volúmenes que se utilizarán en el pod.
+      - name: mongo-storage    # Nombre del volumen.
+        persistentVolumeClaim: # Utiliza un PersistentVolumeClaim para el almacenamiento persistente.
+          claimName: mongo-pvc # Nombre del PersistentVolumeClaim que se utilizará.
