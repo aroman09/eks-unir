@@ -1,25 +1,25 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: apps/v1          # La versión de la API de Kubernetes para el recurso Deployment.
+kind: Deployment             # Especifica que se está creando un Deployment.
 metadata:
-  name: node-app-deployment
-  namespace: node-app-namespace
+  name: node-app-deployment  # Nombre del Deployment.
+  namespace: node-app-namespace  # Namespace donde se desplegará el Deployment.
   labels:
-    app: node-app
+    app: node-app            # Etiqueta para identificar el Deployment.
 spec:
-  replicas: 2
+  replicas: 2                # Número de réplicas (pods) que se crearán para la aplicación.
   selector:
     matchLabels:
-      app: node-app
-  template:
+      app: node-app          # Selector que identifica los pods gestionados por este Deployment.
+  template:                  # Plantilla que define cómo se deben crear los pods.
     metadata:
       labels:
-        app: node-app
+        app: node-app        # Etiqueta que se aplicará a los pods creados por este Deployment.
     spec:
-      containers:
-      - name: node-app
-        image: aroman9/node-app-unir:latest  # Asegúrate de que esta imagen sea correcta
+      containers:            # Lista de contenedores que se ejecutarán en cada pod.
+      - name: node-app       # Nombre del contenedor.
+        image: aroman9/node-app-unir:latest  # Imagen de Docker para el contenedor. Asegúrate de que esta imagen exista y sea correcta.
         ports:
-        - containerPort: 3000
-        env:
-        - name: MONGO_URL
-          value: "mongodb://mongo-service:27017/mydatabase"  # Verifica que el nombre del Service sea correcto
+        - containerPort: 3000  # Puerto en el que el contenedor escucha las conexiones.
+        env:                  # Variables de entorno para el contenedor.
+        - name: MONGO_URL     # Nombre de la variable de entorno para la URL de MongoDB.
+          value: "mongodb://mongo-service:27017/mydatabase"  # URL de conexión a MongoDB. Asegúrate de que el nombre del Service de MongoDB sea correcto.
