@@ -4,9 +4,10 @@ metadata:
   name: node-app-service
   namespace: node-app-namespace
 spec:
-  type: NodePort
-  ports:
-  - port: 3000
-    nodePort: 30000
   selector:
-    app: node-app
+    app: node-app           # Selector que coincide con el label del Deployment de la app
+  ports:
+    - protocol: TCP
+      port: 30000           # Puerto expuesto en el Service
+      targetPort: 3000      # Puerto en el contenedor de la aplicación
+  type: LoadBalancer
