@@ -17,7 +17,7 @@ spec:
     spec:
       containers:            # Lista de contenedores que se ejecutarán en cada pod.
       - name: node-app       # Nombre del contenedor.
-        image: aroman9/node-app-unir:latest  # Imagen de Docker para el contenedor. Asegúrate de que esta imagen exista y sea correcta.
+        image: aroman9/node-app-unir:latest  # Imagen de Docker para el contenedor.
         ports:
         - containerPort: 3000  # Puerto en el que el contenedor escucha las conexiones.
         env:                  # Variables de entorno para el contenedor.
