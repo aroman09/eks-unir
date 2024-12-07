@@ -1,24 +1,24 @@
-apiVersion: v1
-kind: PersistentVolume
+apiVersion: v1                # Versión de la API de Kubernetes para el recurso PersistentVolume.
+kind: PersistentVolume        # Especifica que se está creando un PersistentVolume (PV).
 metadata:
-  name: mongo-pv
-  namespace: node-app-namespace
+  name: mongo-pv              # Nombre del PersistentVolume.
+  namespace: node-app-namespace  # Namespace donde se creará el PV (aunque los PVs son recursos de clúster, se puede especificar un namespace para los metadatos).
 spec:
   capacity:
-    storage: 1Gi
+    storage: 1Gi              # Capacidad del almacenamiento (1 GiB).
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteOnce           # El volumen puede ser montado como lectura-escritura por un solo nodo.
   hostPath:
-    path: /mnt/data/mongo-persistent
+    path: /mnt/data/mongo-persistent  # Ruta en el nodo donde se almacenarán los datos. El directorio debe existir o se creará.
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
+apiVersion: v1                # Versión de la API de Kubernetes para el recurso PersistentVolumeClaim.
+kind: PersistentVolumeClaim   # Especifica que se está creando un PersistentVolumeClaim (PVC).
 metadata:
-  name: mongo-pvc
-  namespace: node-app-namespace
+  name: mongo-pvc             # Nombre del PersistentVolumeClaim.
+  namespace: node-app-namespace  # Namespace donde se creará el PVC.
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteOnce           # Solicita un volumen que pueda ser montado como lectura-escritura por un solo nodo.
   resources:
     requests:
-      storage: 1Gi
+      storage: 1Gi            # Solicita 1 GiB de almacenamiento del PersistentVolume disponible.
