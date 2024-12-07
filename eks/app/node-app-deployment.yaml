@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: node-app-deployment
   namespace: node-app-namespace
+  labels:
+    app: node-app
 spec:
   replicas: 2
   selector:
@@ -15,9 +17,9 @@ spec:
     spec:
       containers:
       - name: node-app
-        image: aroman9/node-app-unir:latest
+        image: aroman9/node-app-unir:latest  # Asegúrate de que esta imagen sea correcta
         ports:
         - containerPort: 3000
         env:
         - name: MONGO_URL
-          value: mongodb://mongo:27017/mydatabase
+          value: "mongodb://mongo-service:27017/mydatabase"  # Verifica que el nombre del Service sea correcto
