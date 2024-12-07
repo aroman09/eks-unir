@@ -1,30 +1,30 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: apps/v1          # Versión de la API de Kubernetes para el recurso Deployment.
+kind: Deployment             # Especifica que se está creando un Deployment.
 metadata:
-  name: mongo-deployment
-  namespace: node-app-namespace
+  name: mongo-deployment     # Nombre del Deployment, usado para identificarlo dentro del clúster.
+  namespace: node-app-namespace  # Namespace en el que se desplegará el Deployment.
   labels:
-    app: mongo
+    app: mongo               # Etiqueta para identificar el Deployment y sus recursos asociados.
 spec:
-  replicas: 1
+  replicas: 1                # Número de réplicas (pods) que se deben crear para MongoDB.
   selector:
     matchLabels:
-      app: mongo
-  template:
+      app: mongo             # Selector que identifica qué pods deben ser gestionados por este Deployment
+  template:                  # Plantilla para crear los pods.
     metadata:
       labels:
-        app: mongo
+        app: mongo           # Etiqueta aplicada a los pods para que coincidan con el selector del Deployment.
     spec:
-      containers:
-        - name: mongo
-          image: mongo:5.0
+      containers:            # Lista de contenedores que se ejecutarán en el pod.
+        - name: mongo        # Nombre del contenedor.
+          image: mongo:5.0   # Imagen de Docker que se usará para el contenedor MongoDB (versión 5.0).          
           ports:
-            - containerPort: 27017
-          volumeMounts:
-            - name: mongo-storage
-              mountPath: /data/db
-      volumes:
-        - name: mongo-storage
-          hostPath:
-            path: /mnt/data/mongo
-            type: DirectoryOrCreate
+            - containerPort: 27017  # Expone el puerto 27017 en el contenedor (puerto predeterminado de MongoDB).
+          volumeMounts:       # Define los volúmenes que se montarán en el contenedor.
+            - name: mongo-storage   # Nombre del volumen que se montará en el contenedor.
+              mountPath: /data/db   # Ruta dentro del contenedor donde MongoDB almacenará sus datos.
+      volumes:               # Define los volúmenes que se utilizarán en el pod.
+        - name: mongo-storage      # Nombre del volumen que se usará en el contenedor.
+          hostPath:                # Usa un volumen basado en una ruta del nodo host.
+            path: /mnt/data/mongo  # Ruta en el nodo donde se almacenarán los datos de MongoDB.
+            type: DirectoryOrCreate  # Crea el directorio si no existe ya en el nodo host.
