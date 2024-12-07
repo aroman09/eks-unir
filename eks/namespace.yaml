@@ -1,4 +1,4 @@
-apiVersion: v1
-kind: Namespace
+apiVersion: v1                # Versión de la API de Kubernetes para el recurso Namespace.
+kind: Namespace               # Especifica que se está creando un Namespace.
 metadata:
-  name: node-app-namespace
+  name: node-app-namespace    # Nombre del Namespace. Se utilizará para agrupar y aislar recursos.
